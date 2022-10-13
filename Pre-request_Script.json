@@ -6,6 +6,8 @@
 "//":"2. 需設定環境變數 url/username/password"
 "//":"3. 需確認密碼格式，若為MD5需先宣告加密處理"
 
+var pw = CryptoJS.MD5("password").toString();
+ "//":"*先宣告 pw 為要使用的加密密碼，上面密碼處再改寫成 password: pw 即可。"
 pm.sendRequest({
     url: pm.environment.get("BASE_URL"),
   "//":"先在環境變數裡設定一組變數為BASE_URL、放入要取權限的api url，這裡就可以直接取用，未來透過環境變數去管理即可。"
@@ -25,8 +27,6 @@ pm.sendRequest({
       "//":"塞入打api要給的body、案例格式為 raw。(payload)"
       "//":"這裡把帳號密碼也寫在環境參數裡、方便控管。"
       "//":"若api吃的密碼為MD5加密，要先將密碼處理加密後再置入，在目前這段code前方加上下方的code。"
-      "//":"*先宣告 pw 為要使用的加密密碼，上面密碼處再改寫成 password: pw 即可。"
-      "//":"var pw = CryptoJS.MD5("未加密密碼").toString();"
     }
 }, (err, res) => {
     pm.environment.set("token", res.json().jwt);
